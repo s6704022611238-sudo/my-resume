@@ -7,7 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Kanit', sans-serif; background-color: #eef2f5; color: #333; line-height: 1.5; padding: 30px 15px; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Kanit', sans-serif; background-color: #eef2f5; color: #333; line-height: 1.5; padding: 20px 15px 40px 15px; }
+        
+        /* Navigation Bar */
+        .nav-container { max-width: 950px; margin: 0 auto 20px auto; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; position: sticky; top: 10px; z-index: 100; }
+        .nav-btn { background: #ffffff; color: #0f2b48; border: 2px solid #0f2b48; padding: 8px 16px; border-radius: 25px; font-weight: 500; font-size: 13.5px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(0,0,0,0.08); text-decoration: none; }
+        .nav-btn:hover { background: #0f2b48; color: #ffffff; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(15,43,72,0.25); }
         
         .resume-card { max-width: 950px; margin: 0 auto; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.12); display: flex; flex-wrap: wrap; }
         
@@ -27,27 +33,46 @@
         .header-title { font-size: 26px; color: #0f2b48; font-weight: 700; margin-bottom: 4px; }
         .header-sub { font-size: 14px; color: #0072ff; font-weight: 500; margin-bottom: 20px; }
         
-        .section-title { font-size: 16px; color: #0f2b48; border-bottom: 2px solid #0f2b48; padding-bottom: 4px; margin: 20px 0 12px 0; font-weight: 600; display: flex; align-items: center; }
+        .section-box { scroll-margin-top: 60px; margin-bottom: 20px; }
+        .section-title { font-size: 16px; color: #0f2b48; border-bottom: 2px solid #0f2b48; padding-bottom: 4px; margin: 15px 0 12px 0; font-weight: 600; display: flex; align-items: center; }
         .section-title::before { content: ""; display: inline-block; width: 6px; height: 16px; background: #0072ff; margin-right: 8px; border-radius: 2px; }
         
         .about-text { font-size: 13.5px; color: #444; text-align: justify; line-height: 1.6; }
         
+        /* Fancy Skill Progress Bars */
+        .skill-category { font-size: 13.5px; font-weight: 600; color: #0f2b48; margin: 12px 0 6px 0; }
+        .skill-item { margin-bottom: 10px; }
+        .skill-info { display: flex; justify-content: space-between; font-size: 12.5px; color: #444; font-weight: 500; margin-bottom: 3px; }
+        .progress-bar { width: 100%; height: 8px; background: #eef2f5; border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #0072ff 0%, #00c6ff 100%); border-radius: 10px; }
+
+        .badge-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .badge { background: #eef5ff; color: #0f2b48; border: 1px solid #cce0ff; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: 500; transition: all 0.2s; }
+        .badge:hover { background: #0f2b48; color: #fff; }
+
         table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
         table th { background-color: #f0f4f8; color: #0f2b48; padding: 8px 10px; text-align: left; font-weight: 600; border-bottom: 2px solid #d0dbe5; }
         table td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
-        
-        .badge-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-        .badge { background: #eef5ff; color: #0f2b48; border: 1px solid #cce0ff; padding: 4px 10px; border-radius: 15px; font-size: 12px; font-weight: 500; }
         
         ul.custom-list { padding-left: 18px; font-size: 13px; color: #444; margin-top: 5px; }
         ul.custom-list li { margin-bottom: 4px; }
 
         @media (max-width: 768px) {
             .sidebar, .main-content { width: 100%; }
+            .nav-container { position: static; }
         }
     </style>
 </head>
 <body>
+
+<!-- แถบปุ่มกดนำทาง -->
+<div class="nav-container">
+    <a href="#about" class="nav-btn">👤 เกี่ยวกับฉัน</a>
+    <a href="#education" class="nav-btn">🎓 การศึกษา</a>
+    <a href="#skills" class="nav-btn">⚡ ทักษะความสามารถ</a>
+    <a href="#projects" class="nav-btn">🚀 ผลงาน/โปรเจกต์</a>
+    <a href="#activities" class="nav-btn">🏆 กิจกรรม/เกียรติบัตร</a>
+</div>
 
 <div class="resume-card">
     <!-- ฝั่งซ้าย (Sidebar) -->
@@ -77,10 +102,10 @@
         <div class="side-section">
             <div class="side-title">ความสนใจ (INTERESTS)</div>
             <div class="side-info">
-                <p>• Web Development & Applications</p>
-                <p>• Data Structures & Algorithms</p>
+                <p>• Full-Stack Web Development</p>
+                <p>• Algorithm Optimization</p>
                 <p>• Network Infrastructure & Security</p>
-                <p>• Cloud Computing & DevOps Basic</p>
+                <p>• Cloud Computing & DevOps</p>
             </div>
         </div>
     </div>
@@ -90,65 +115,95 @@
         <div class="header-title">นาย ศศคุณ บุญล้น</div>
         <div class="header-sub">นักศึกษามหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ</div>
 
-        <div class="section-title">เกี่ยวกับฉัน (About Me)</div>
-        <p class="about-text">
-            นักศึกษาสาขาคณิตศาสตร์เชิงคอมพิวเตอร์ มีความสนใจและมุ่งมั่นในการพัฒนาเว็บแอปพลิเคชัน การวิเคราะห์ข้อมูลเชิงลึก และการจัดระบบเครือข่ายคอมพิวเตอร์ พร้อมนำทักษะทางคณิตศาสตร์และตรรกศาสตร์มาประยุกต์ใช้ในการประมวลผล เขียนโปรแกรม และแก้ปัญหาทางเทคโนโลยีอย่างมีประสิทธิภาพ
-        </p>
-
-        <div class="section-title">ข้อมูลการศึกษา (Education)</div>
-        <table>
-            <tr>
-                <th style="width: 25%;">ปีการศึกษา</th>
-                <th>ระดับ / สถานศึกษา</th>
-            </tr>
-            <tr>
-                <td><b>2567 - ปัจจุบัน</b></td>
-                <td>
-                    <b>ปริญญาตรี</b> - มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ (KMUTNB)<br>
-                    <span style="color: #666; font-size: 12px;">คณะวิทยาศาสตร์ประยุกต์ สาขาคณิตศาสตร์เชิงคอมพิวเตอร์ / วิทยาการคอมพิวเตอร์</span>
-                </td>
-            </tr>
-        </table>
-
-        <div class="section-title">ทักษะความสามารถ (Technical Skills)</div>
-        <div class="badge-group">
-            <span class="badge">HTML5 / CSS3</span>
-            <span class="badge">JavaScript (ES6+)</span>
-            <span class="badge">Python</span>
-            <span class="badge">C / C++</span>
-            <span class="badge">SQL / Database</span>
-            <span class="badge">Git & GitHub</span>
-            <span class="badge">VS Code</span>
-            <span class="badge">Basic Networking (TCP/IP)</span>
-            <span class="badge">Data Structures</span>
-            <span class="badge">Microsoft Office</span>
+        <div id="about" class="section-box">
+            <div class="section-title">เกี่ยวกับฉัน (About Me)</div>
+            <p class="about-text">
+                นักศึกษาสาขาคณิตศาสตร์เชิงคอมพิวเตอร์ มีความสนใจและมุ่งมั่นในการพัฒนาเว็บแอปพลิเคชัน การวิเคราะห์ข้อมูลเชิงลึก และการจัดระบบเครือข่ายคอมพิวเตอร์ พร้อมนำทักษะทางคณิตศาสตร์และตรรกศาสตร์มาประยุกต์ใช้ในการประมวลผล เขียนโปรแกรม และแก้ปัญหาทางเทคโนโลยีอย่างมีประสิทธิภาพ
+            </p>
         </div>
 
-        <div class="section-title">โครงงานและผลงาน (Projects)</div>
-        <table>
-            <tr>
-                <th style="width: 30%;">โปรเจกต์</th>
-                <th>รายละเอียดและเทคโนโลยีที่ใช้</th>
-            </tr>
-            <tr>
-                <td><b>Personal Resume Website</b></td>
-                <td>พัฒนาและดีพลอยต์เว็บประวัติส่วนตัวออนไลน์แบบ Responsive รองรับทุกอุปกรณ์ ใช้ HTML5/CSS3 และโฮสต์บน GitHub Pages สำหรับวิชา DN 2026</td>
-            </tr>
-            <tr>
-                <td><b>Data Analysis & Calculation Tool</b></td>
-                <td>พัฒนาโปรแกรมคำนวณและวิเคราะห์ข้อมูลทางคณิตศาสตร์เบื้องต้นด้วย Python ช่วยประมวลผลชุดข้อมูลขนาดเล็กอย่างแม่นยำ</td>
-            </tr>
-            <tr>
-                <td><b>Network Simulation Lab</b></td>
-                <td>จำลองการรับส่งข้อมูลผ่านโปรโตคอล TCP/IP และการตั้งค่า IP Address เบื้องต้นในรายวิชา Data Communication and Networking</td>
-            </tr>
-        </table>
+        <div id="education" class="section-box">
+            <div class="section-title">ข้อมูลการศึกษา (Education)</div>
+            <table>
+                <tr>
+                    <th style="width: 25%;">ปีการศึกษา</th>
+                    <th>ระดับ / สถานศึกษา</th>
+                </tr>
+                <tr>
+                    <td><b>2567 - ปัจจุบัน</b></td>
+                    <td>
+                        <b>ปริญญาตรี</b> - มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ (KMUTNB)<br>
+                        <span style="color: #666; font-size: 12px;">คณะวิทยาศาสตร์ประยุกต์ สาขาคณิตศาสตร์เชิงคอมพิวเตอร์ / วิทยาการคอมพิวเตอร์</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-        <div class="section-title">กิจกรรมและใบรับรอง (Activities & Certifications)</div>
-        <ul class="custom-list">
-            <li><b>เข้าร่วมการอบรมเชิงปฏิบัติการ:</b> การพัฒนาเว็บแอปพลิเคชันพื้นฐานและการใช้ Version Control ด้วย Git/GitHub</li>
-            <li><b>กิจกรรมสาขาวิชา:</b> เข้าร่วมโครงการร่วมใจพัฒนาทักษะทางคณิตศาสตร์คอมพิวเตอร์ คณะวิทยาศาสตร์ประยุกต์ KMUTNB</li>
-        </ul>
+        <!-- ส่วน Technical Skills แบบเฟี้ยวๆ -->
+        <div id="skills" class="section-box">
+            <div class="section-title">ทักษะความสามารถ (Technical Skills)</div>
+            
+            <div class="skill-category">💻 Programming & Web Development</div>
+            <div class="skill-item">
+                <div class="skill-info"><span>HTML5 / CSS3 / JavaScript</span><span>85%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-info"><span>Python (Data Analysis & Scripting)</span><span>80%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-info"><span>C / C++ Programming</span><span>75%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+            </div>
+
+            <div class="skill-category">🌐 Networking & Infrastructure</div>
+            <div class="skill-item">
+                <div class="skill-info"><span>Basic Computer Networking (TCP/IP, Routing)</span><span>75%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+            </div>
+
+            <div class="skill-category">🛠️ Tools & Technologies</div>
+            <div class="badge-group">
+                <span class="badge">Git & GitHub</span>
+                <span class="badge">VS Code</span>
+                <span class="badge">SQL / MySQL</span>
+                <span class="badge">Data Structures</span>
+                <span class="badge">Linux Command Line</span>
+                <span class="badge">GitHub Pages (Hosting)</span>
+                <span class="badge">Microsoft Office Suite</span>
+            </div>
+        </div>
+
+        <div id="projects" class="section-box">
+            <div class="section-title">โครงงานและผลงาน (Projects)</div>
+            <table>
+                <tr>
+                    <th style="width: 30%;">โปรเจกต์</th>
+                    <th>รายละเอียดและเทคโนโลยีที่ใช้</th>
+                </tr>
+                <tr>
+                    <td><b>Personal Resume Website</b></td>
+                    <td>พัฒนาและดีพลอยต์เว็บประวัติส่วนตัวแบบ Interactive รองรับทุกอุปกรณ์ ใช้ HTML5/CSS3 และโฮสต์บน GitHub Pages สำหรับวิชา DN 2026</td>
+                </tr>
+                <tr>
+                    <td><b>Data Analysis & Calculation Tool</b></td>
+                    <td>พัฒนาโปรแกรมคำนวณและวิเคราะห์ข้อมูลทางคณิตศาสตร์เบื้องต้นด้วย Python ช่วยประมวลผลชุดข้อมูลขนาดเล็กอย่างแม่นยำ</td>
+                </tr>
+                <tr>
+                    <td><b>Network Simulation Lab</b></td>
+                    <td>จำลองการรับส่งข้อมูลผ่านโปรโตคอล TCP/IP และการตั้งค่า IP Address เบื้องต้นในรายวิชา Data Communication and Networking</td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="activities" class="section-box">
+            <div class="section-title">กิจกรรมและใบรับรอง (Activities & Certifications)</div>
+            <ul class="custom-list">
+                <li><b>เข้าร่วมการอบรมเชิงปฏิบัติการ:</b> การพัฒนาเว็บแอปพลิเคชันพื้นฐานและการใช้ Version Control ด้วย Git/GitHub</li>
+                <li><b>กิจกรรมสาขาวิชา:</b> เข้าร่วมโครงการร่วมใจพัฒนาทักษะทางคณิตศาสตร์คอมพิวเตอร์ คณะวิทยาศาสตร์ประยุกต์ KMUTNB</li>
+            </ul>
+        </div>
     </div>
 </div>
 

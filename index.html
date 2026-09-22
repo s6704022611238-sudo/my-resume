@@ -3,210 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume - ศศคุณ บุญล้น</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>SASAKUN BOONLON - Developer Portfolio 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Kanit', sans-serif; background-color: #0b0e14; color: #e1e6ed; line-height: 1.6; padding: 40px 15px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: default; }
+        body { font-family: 'Kanit', sans-serif; background: #030712; color: #f3f4f6; overflow-x: hidden; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; position: relative; }
+
+        /* Animated Glowing Grid Background */
+        .bg-grid { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: linear-gradient(to right, rgba(255, 0, 85, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 114, 255, 0.05) 1px, transparent 1px); background-size: 40px 40px; z-index: 0; pointer-events: none; }
         
-        .main-card { max-width: 800px; margin: 0 auto; background: #121824; border-radius: 20px; border: 2px solid #1e293b; padding: 40px 30px; text-align: center; box-shadow: 0 0 30px rgba(0, 114, 255, 0.15); position: relative; overflow: hidden; }
-        .main-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #ff0055 0%, #0072ff 100%); }
+        /* Floating Particles Canvas */
+        #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 
-        .profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #0072ff; box-shadow: 0 0 20px rgba(0, 114, 255, 0.5), 0 0 10px rgba(255, 0, 85, 0.5); margin-bottom: 20px; }
-        .name { font-size: 28px; font-weight: 700; color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
-        .role { font-size: 15px; color: #ff0055; font-weight: 600; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
-        .contact-fast { font-size: 13px; color: #94a3b8; margin-bottom: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .contact-fast span { background: #1e293b; padding: 5px 12px; border-radius: 20px; border: 1px solid #334155; }
+        /* Main Hologram Card 3D Effect */
+        .card-container { perspective: 1000px; z-index: 2; width: 100%; max-width: 850px; }
+        .holo-card { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(16px); border-radius: 24px; border: 2px solid rgba(0, 114, 255, 0.4); padding: 50px 40px; text-align: center; box-shadow: 0 0 50px rgba(0, 114, 255, 0.25), inset 0 0 20px rgba(255, 0, 85, 0.15); transition: transform 0.1s ease-out, box-shadow 0.3s ease; position: relative; overflow: hidden; transform-style: preserve-3d; }
+        .holo-card::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(255, 0, 85, 0.1), rgba(0, 114, 255, 0.1), transparent); transform: rotate(45deg); animation: laserScan 6s linear infinite; pointer-events: none; }
 
-        /* Navigation Grid Buttons */
-        .btn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 20px; }
-        .cyber-btn { background: #161f30; color: #fff; border: 1.5px solid #0072ff; padding: 15px 20px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Kanit', sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .cyber-btn:hover { background: linear-gradient(135deg, #ff0055 0%, #0072ff 100%); border-color: #ffffff; transform: translateY(-3px); box-shadow: 0 0 20px rgba(255, 0, 85, 0.4), 0 0 20px rgba(0, 114, 255, 0.4); }
+        @keyframes laserScan {
+            0% { transform: translateY(-100%) rotate(45deg); }
+            100% { transform: translateY(100%) rotate(45deg); }
+        }
 
-        /* Popup (Modal) Style */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 15, 0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
+        /* Avatar Hologram Effect */
+        .avatar-box { position: relative; width: 160px; height: 160px; margin: 0 auto 25px auto; transform: translateZ(40px); }
+        .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid #00c6ff; box-shadow: 0 0 25px #0072ff, 0 0 15px #ff0055; }
+        .avatar-ring { position: absolute; top: -10px; left: -10px; right: -10px; bottom: -10px; border: 2px dashed #ff0055; border-radius: 50%; animation: spinRing 12s linear infinite; }
+
+        @keyframes spinRing { 100% { transform: rotate(360deg); } }
+
+        /* Typography */
+        .hero-name { font-family: 'Orbitron', 'Kanit', sans-serif; font-size: 32px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(90deg, #ffffff, #00c6ff, #ff0055); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 198, 255, 0.5); transform: translateZ(30px); margin-bottom: 5px; }
+        .hero-tag { font-size: 14px; font-weight: 600; color: #ff0055; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; transform: translateZ(25px); text-shadow: 0 0 10px rgba(255, 0, 85, 0.6); }
+
+        .quick-contact { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 35px; transform: translateZ(20px); }
+        .badge-info { background: rgba(30, 41, 59, 0.8); border: 1px solid rgba(0, 198, 255, 0.3); padding: 6px 16px; border-radius: 20px; font-size: 13px; color: #cbd5e1; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+        /* Cyber Buttons Grid */
+        .btn-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; transform: translateZ(35px); }
+        .cyber-btn { background: rgba(15, 23, 42, 0.9); color: #fff; border: 1.5px solid #0072ff; padding: 16px; border-radius: 14px; font-weight: 600; font-size: 14.5px; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'Kanit', sans-serif; box-shadow: 0 0 15px rgba(0, 114, 255, 0.2); }
+        .cyber-btn::before { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); transition: 0.5s; }
+        .cyber-btn:hover::before { left: 100%; }
+        .cyber-btn:hover { background: linear-gradient(135deg, #ff0055 0%, #0072ff 100%); border-color: #ffffff; transform: translateY(-5px) scale(1.03); box-shadow: 0 10px 25px rgba(255, 0, 85, 0.5), 0 0 30px rgba(0, 114, 255, 0.6); }
+
+        /* Neon Glass Popups (Modals) */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(12px); display: none; justify-content: center; align-items: center; z-index: 999; opacity: 0; transition: all 0.3s ease; }
         .modal-overlay.active { display: flex; opacity: 1; }
         
-        .modal-box { background: #121824; border: 2px solid #0072ff; border-radius: 16px; width: 90%; max-width: 600px; padding: 30px; position: relative; box-shadow: 0 0 30px rgba(0, 114, 255, 0.3), 0 0 15px rgba(255, 0, 85, 0.3); transform: scale(0.8); transition: transform 0.3s ease; max-height: 85vh; overflow-y: auto; }
-        .modal-overlay.active .modal-box { transform: scale(1); }
+        .modal-box { background: rgba(15, 23, 42, 0.95); border: 2px solid #ff0055; border-radius: 20px; width: 90%; max-width: 620px; padding: 35px; position: relative; box-shadow: 0 0 40px rgba(255, 0, 85, 0.3), 0 0 20px rgba(0, 114, 255, 0.4); transform: scale(0.7) translateY(50px); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-height: 85vh; overflow-y: auto; }
+        .modal-overlay.active .modal-box { transform: scale(1) translateY(0); }
 
-        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ff0055; padding-bottom: 10px; margin-bottom: 20px; }
-        .modal-title { font-size: 20px; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 10px; }
-        .close-btn { background: #ff0055; color: #fff; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; cursor: pointer; font-size: 16px; transition: 0.2s; }
-        .close-btn:hover { background: #e0004c; transform: scale(1.1); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(0, 198, 255, 0.4); padding-bottom: 12px; margin-bottom: 20px; }
+        .modal-title { font-family: 'Orbitron', 'Kanit', sans-serif; font-size: 20px; font-weight: 700; color: #00c6ff; display: flex; align-items: center; gap: 10px; }
+        .close-btn { background: #ff0055; color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; font-weight: bold; cursor: pointer; font-size: 18px; transition: 0.2s; box-shadow: 0 0 10px #ff0055; }
+        .close-btn:hover { transform: rotate(90deg) scale(1.1); background: #ff2a75; }
 
-        /* Content inside Modals */
-        .modal-body { font-size: 14px; color: #cbd5e1; text-align: left; }
-        .modal-body table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .modal-body th { background: #1e293b; color: #ff0055; padding: 10px; text-align: left; }
-        .modal-body td { padding: 10px; border-bottom: 1px solid #1e293b; }
+        .modal-body { font-size: 14.5px; color: #e2e8f0; text-align: left; line-height: 1.7; }
         
-        .skill-bar-box { margin-bottom: 15px; }
-        .skill-name { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; color: #e2e8f0; }
-        .bar-bg { background: #1e293b; height: 10px; border-radius: 5px; overflow: hidden; }
-        .bar-fill { height: 100%; background: linear-gradient(90deg, #ff0055, #0072ff); border-radius: 5px; }
+        /* Table Styling */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { background: rgba(30, 41, 59, 0.9); color: #ff0055; padding: 12px; text-align: left; font-family: 'Orbitron', 'Kanit'; font-size: 13px; }
+        td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
-        .tag-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .tag { background: #1e293b; color: #38bdf8; border: 1px solid #0284c7; padding: 5px 12px; border-radius: 20px; font-size: 12px; }
+        /* Skill Bar Neon Animation */
+        .skill-bar-box { margin-bottom: 18px; }
+        .skill-name { display: flex; justify-content: space-between; font-size: 13.5px; margin-bottom: 6px; color: #f8fafc; font-weight: 600; }
+        .bar-bg { background: rgba(30, 41, 59, 0.8); height: 12px; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, #ff0055 0%, #0072ff 100%); border-radius: 6px; box-shadow: 0 0 10px #0072ff; width: 0%; transition: width 1s ease-in-out; }
+
+        .tag-group { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .tag { background: rgba(0, 114, 255, 0.15); color: #38bdf8; border: 1px solid #0284c7; padding: 6px 14px; border-radius: 20px; font-size: 12.5px; box-shadow: 0 0 8px rgba(2, 132, 199, 0.3); }
 
         ul.cyber-list { padding-left: 20px; }
-        ul.cyber-list li { margin-bottom: 8px; }
+        ul.cyber-list li { margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-<div class="main-card">
-    <img src="profile.jpg" alt="ศศคุณ บุญล้น" class="profile-img">
-    <div class="name">นาย ศศคุณ บุญล้น</div>
-    <div class="role">Computer Mathematics Student • KMUTNB</div>
-    
-    <div class="contact-fast">
-        <span>📞 0622434352</span>
-        <span>✉️ s6704022611238@email.kmutnb.ac.th</span>
-        <span>📍 กรุงเทพมหานคร</span>
-    </div>
+<div class="bg-grid"></div>
+<canvas id="particles-canvas"></canvas>
 
-    <!-- ปุ่มเลือกหัวข้อสำหรับกดเด้ง Popup -->
-    <div class="btn-grid">
-        <button class="cyber-btn" onclick="openModal('m-about')">👤 เกี่ยวกับฉัน</button>
-        <button class="cyber-btn" onclick="openModal('m-education')">🎓 ประวัติการศึกษา</button>
-        <button class="cyber-btn" onclick="openModal('m-skills')">⚡ ทักษะความสามารถ</button>
-        <button class="cyber-btn" onclick="openModal('m-projects')">🚀 ผลงาน & โปรเจกต์</button>
-        <button class="cyber-btn" onclick="openModal('m-activities')">🏆 กิจกรรม & เกียรติบัตร</button>
+<div class="card-container">
+    <div class="holo-card" id="tiltCard">
+        <div class="avatar-box">
+            <div class="avatar-ring"></div>
+            <img src="profile.jpg" alt="ศศคุณ บุญล้น" class="avatar-img">
+        </div>
+
+        <div class="hero-name">ศศคุณ บุญล้น</div>
+        <div class="hero-tag">⚡ Computer Mathematics & Software Engineer ⚡</div>
+
+        <div class="quick-contact">
+            <div class="badge-info">📞 0622434352</div>
+            <div class="badge-info">✉️ s6704022611238@email.kmutnb.ac.th</div>
+            <div class="badge-info">📍 KMUTNB Bangkok</div>
+        </div>
+
+        <div class="btn-grid">
+            <button class="cyber-btn" onclick="openModal('m-about')">👤 PROFILE INFO</button>
+            <button class="cyber-btn" onclick="openModal('m-education')">🎓 EDUCATION</button>
+            <button class="cyber-btn" onclick="openModal('m-skills')">⚡ TECH SKILLS</button>
+            <button class="cyber-btn" onclick="openModal('m-projects')">🚀 PROJECTS</button>
+            <button class="cyber-btn" onclick="openModal('m-activities')">🏆 ACTIVITIES</button>
+        </div>
     </div>
 </div>
 
-<!-- POPUP 1: เกี่ยวกับฉัน -->
+<!-- POPUPS MODALS -->
 <div class="modal-overlay" id="m-about">
     <div class="modal-box">
         <div class="modal-header">
-            <div class="modal-title">👤 เกี่ยวกับฉัน (About Me)</div>
+            <div class="modal-title">👤 ABOUT ME / ประวัติส่วนตัว</div>
             <button class="close-btn" onclick="closeModal('m-about')">✕</button>
         </div>
         <div class="modal-body">
-            <p>นักศึกษาสาขาคณิตศาสตร์เชิงคอมพิวเตอร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ มีความสนใจในการพัฒนา Full-Stack Web Application, Data Analysis และ Network Infrastructure มุ่งมั่นที่จะนำตรรกศาสตร์ทางคณิตศาสตร์มาแก้ไขปัญหาทางซอฟต์แวร์อย่างเป็นระบบ</p>
+            <p>นักศึกษาสาขาคณิตศาสตร์เชิงคอมพิวเตอร์ มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ มีความเชี่ยวชาญและสนใจในงาน **Full-Stack Web Development**, **Data Structures & Algorithms** และ **Network Infrastructure** พร้อมประยุกต์ทักษะคณิตศาสตร์ขั้นสูงเพื่อสร้างสรรค์ระบบเทคโนโลยีที่มีประสิทธิภาพสูงสุด</p>
         </div>
     </div>
 </div>
 
-<!-- POPUP 2: การศึกษา -->
 <div class="modal-overlay" id="m-education">
     <div class="modal-box">
         <div class="modal-header">
-            <div class="modal-title">🎓 ประวัติการศึกษา (Education)</div>
+            <div class="modal-title">🎓 EDUCATION HISTORY</div>
             <button class="close-btn" onclick="closeModal('m-education')">✕</button>
         </div>
         <div class="modal-body">
             <table>
                 <tr>
-                    <th>ปีการศึกษา</th>
-                    <th>ระดับ / สถานศึกษา</th>
+                    <th>YEAR</th>
+                    <th>DEGREE / INSTITUTION</th>
                 </tr>
                 <tr>
-                    <td><b>2567 - ปัจจุบัน</b></td>
-                    <td><b>ปริญญาตรี</b> - มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ<br><span style="color:#94a3b8; font-size: 12px;">คณะวิทยาศาสตร์ประยุกต์ สาขาคณิตศาสตร์เชิงคอมพิวเตอร์</span></td>
+                    <td><b>2567 - PRESENT</b></td>
+                    <td><b>ปริญญาตรี (B.Sc.)</b> - มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ (KMUTNB)<br><span style="color:#94a3b8; font-size: 12px;">คณะวิทยาศาสตร์ประยุกต์ สาขาคณิตศาสตร์เชิงคอมพิวเตอร์</span></td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
 
-<!-- POPUP 3: ทักษะความสามารถ -->
 <div class="modal-overlay" id="m-skills">
     <div class="modal-box">
         <div class="modal-header">
-            <div class="modal-title">⚡ ทักษะความสามารถ (Technical Skills)</div>
+            <div class="modal-title">⚡ TECHNICAL MATRIX</div>
             <button class="close-btn" onclick="closeModal('m-skills')">✕</button>
         </div>
         <div class="modal-body">
             <div class="skill-bar-box">
-                <div class="skill-name"><span>HTML5 / CSS3 / JavaScript</span><span>85%</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="width: 85%;"></div></div>
+                <div class="skill-name"><span>HTML5 / CSS3 / JavaScript (ES6+)</span><span>85%</span></div>
+                <div class="bar-bg"><div class="bar-fill" data-width="85%"></div></div>
             </div>
             <div class="skill-bar-box">
-                <div class="skill-name"><span>Python (Data Analysis & Scripting)</span><span>80%</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="width: 80%;"></div></div>
+                <div class="skill-name"><span>Python (Data Science & Analytics)</span><span>80%</span></div>
+                <div class="bar-bg"><div class="bar-fill" data-width="80%"></div></div>
             </div>
             <div class="skill-bar-box">
-                <div class="skill-name"><span>C / C++ Programming</span><span>75%</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="width: 75%;"></div></div>
+                <div class="skill-name"><span>C / C++ Algorithms</span><span>75%</span></div>
+                <div class="bar-bg"><div class="bar-fill" data-width="75%"></div></div>
             </div>
             <div class="skill-bar-box">
-                <div class="skill-name"><span>Networking (TCP/IP, Routing)</span><span>75%</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="width: 75%;"></div></div>
+                <div class="skill-name"><span>Computer Networking (TCP/IP, Routing)</span><span>75%</span></div>
+                <div class="bar-bg"><div class="bar-fill" data-width="75%"></div></div>
             </div>
             
-            <p style="margin-top: 15px; color: #ff0055; font-weight: 600;">Tools & Technologies:</p>
+            <p style="margin-top: 20px; color: #ff0055; font-weight: 700; font-family: Orbitron;">TOOLS & FRAMEWORKS:</p>
             <div class="tag-group">
                 <span class="tag">Git & GitHub</span>
                 <span class="tag">VS Code</span>
-                <span class="tag">SQL / MySQL</span>
-                <span class="tag">Data Structures</span>
+                <span class="tag">SQL / Database</span>
                 <span class="tag">Linux CLI</span>
+                <span class="tag">Data Structures</span>
+                <span class="tag">GitHub Pages</span>
             </div>
         </div>
     </div>
 </div>
 
-<!-- POPUP 4: โปรเจกต์ -->
 <div class="modal-overlay" id="m-projects">
     <div class="modal-box">
         <div class="modal-header">
-            <div class="modal-title">🚀 ผลงาน & โปรเจกต์ (Projects)</div>
+            <div class="modal-title">🚀 FEATURED PROJECTS</div>
             <button class="close-btn" onclick="closeModal('m-projects')">✕</button>
         </div>
         <div class="modal-body">
             <table>
                 <tr>
-                    <th>โปรเจกต์</th>
-                    <th>รายละเอียด</th>
+                    <th>PROJECT</th>
+                    <th>DESCRIPTION</th>
                 </tr>
                 <tr>
-                    <td><b>Personal Resume Site</b></td>
-                    <td>พัฒนาเว็บประวัติส่วนตัวรูปแบบ Interactive Cyberpunk โฮสต์บน GitHub Pages สำหรับวิชา DN 2026</td>
+                    <td><b>Holographic Resume</b></td>
+                    <td>พัฒนาเว็บแอปพลิเคชันนำเสนอประวัติส่วนตัวในรูปแบบ 3D Cyberpunk พร้อม Interactive Modals โฮสต์บน GitHub Pages สำหรับรายวิชา DN 2026</td>
                 </tr>
                 <tr>
-                    <td><b>Data Analysis Tool</b></td>
-                    <td>เขียนสคริปต์ Python สำหรับการประมวลผลและวิเคราะห์ชุดข้อมูลทางคณิตศาสตร์</td>
+                    <td><b>Math Data Calculator</b></td>
+                    <td>พัฒนาโปรแกรมคำนวณและประมวลผลข้อมูลทางคณิตศาสตร์ด้วยภาษาสคริปต์ Python</td>
                 </tr>
                 <tr>
-                    <td><b>Network Simulation</b></td>
-                    <td>จำลองระบบการรับส่งข้อมูลเครือข่ายคอมพิวเตอร์ผ่านโปรโตคอล TCP/IP</td>
+                    <td><b>Network Topology Lab</b></td>
+                    <td>จำลองและทดสอบการรับส่งแพ็กเกจข้อมูลผ่านระบบเครือข่าย TCP/IP ในห้องปฏิบัติการ</td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
 
-<!-- POPUP 5: กิจกรรม -->
 <div class="modal-overlay" id="m-activities">
     <div class="modal-box">
         <div class="modal-header">
-            <div class="modal-title">🏆 กิจกรรม & เกียรติบัตร (Activities)</div>
+            <div class="modal-title">🏆 ACTIVITIES & CERTS</div>
             <button class="close-btn" onclick="closeModal('m-activities')">✕</button>
         </div>
         <div class="modal-body">
             <ul class="cyber-list">
-                <li><b>เข้าร่วมการอบรม:</b> การพัฒนา Web Application และการจัดการ Source Code ด้วย Git/GitHub</li>
-                <li><b>กิจกรรมสาขา:</b> เข้าร่วมโครงการอบรมทักษะทางคณิตศาสตร์คอมพิวเตอร์ คณะวิทยาศาสตร์ประยุกต์ KMUTNB</li>
+                <li><b>Web App & Git Training:</b> ผ่านการอบรมเชิงปฏิบัติการด้านการพัฒนาเว็บและการบริหารจัดการ Source Code ด้วย Git/GitHub</li>
+                <li><b>KMUTNB Comp-Math Workshop:</b> เข้าร่วมกิจกรรมพัฒนาทักษะวิชาชีพทางคณิตศาสตร์คอมพิวเตอร์ คณะวิทยาศาสตร์ประยุกต์</li>
             </ul>
         </div>
     </div>
 </div>
 
 <script>
+    // 1. 3D Tilt Effect on Mouse Move
+    const card = document.getElementById('tiltCard');
+    document.addEventListener('mousemove', (e) => {
+        let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+        let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+
+    // 2. Interactive Modals & Animated Skill Bars
     function openModal(id) {
-        document.getElementById(id).classList.add('active');
+        const modal = document.getElementById(id);
+        modal.classList.add('active');
+        
+        // Fill Progress Bars on Open
+        const fills = modal.querySelectorAll('.bar-fill');
+        fills.forEach(fill => {
+            fill.style.width = fill.getAttribute('data-width');
+        });
     }
+
     function closeModal(id) {
-        document.getElementById(id).classList.remove('active');
+        const modal = document.getElementById(id);
+        modal.classList.remove('active');
+        const fills = modal.querySelectorAll('.bar-fill');
+        fills.forEach(fill => { fill.style.width = '0%'; });
     }
-    // คลิกพื้นที่ว่างภายนอกเพื่อปิด Popup
+
     window.onclick = function(event) {
         if (event.target.classList.contains('modal-overlay')) {
             event.target.classList.remove('active');
+            const fills = event.target.querySelectorAll('.bar-fill');
+            fills.forEach(fill => { fill.style.width = '0%'; });
         }
     }
+
+    // 3. Canvas Floating Cyber Particles
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    for(let i=0; i<60; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 1,
+            speedX: (Math.random() - 0.5) * 0.8,
+            speedY: (Math.random() - 0.5) * 0.8,
+            color: Math.random() > 0.5 ? '#0072ff' : '#ff0055'
+        });
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.x += p.speedX;
+            p.y += p.speedY;
+            if(p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+            if(p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+            ctx.fillStyle = p.color;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
 </script>
 
 </body>
